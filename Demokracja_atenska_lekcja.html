@@ -250,6 +250,19 @@
   .st .choice.chosen { border-color: var(--terra); background: #f8ebe3; }
   .st .q-text { font-size: 26px; min-height: 0; }
   .st-choices { display: grid; gap: 10px; }
+  .st-choices.tf { grid-template-columns: 1fr 1fr; }
+  .st-choices.tf .choice { text-align: center; font-family: var(--display); font-size: 22px; padding: 22px 10px; }
+  .type-hint { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--terra); margin-bottom: 6px; }
+  .st .choice.check, .st .choice.ord { display: flex; align-items: center; gap: 12px; }
+  .choice .box { flex: none; width: 22px; height: 22px; border: 2px solid var(--muted); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+  .choice.chosen .box { background: var(--terra); border-color: var(--terra); }
+  .choice.chosen .box::after { content: "✓"; color: #fff; font-size: 15px; font-family: var(--sans); }
+  .choice .badge { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 2px dashed var(--muted); display: flex; align-items: center; justify-content: center; font-family: var(--display); font-weight: 700; }
+  .choice.chosen .badge { border: 0; background: var(--terra); color: #fff; }
+  .match-row { display: grid; gap: 6px; padding: 12px 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 18px; font-weight: 600; }
+  .match-row select, .st-input { width: 100%; padding: 12px; font-size: 17px; border: 2px solid var(--line); border-radius: 6px; background: #fff; }
+  .st-input { font-family: var(--serif); font-size: 20px; }
+  .match-row select:focus, .st-input:focus { outline: none; border-color: var(--terra); }
   .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 6px 0 20px; }
   .progress i { display: block; height: 100%; background: var(--terra); transition: width .3s; }
   .warn { background: var(--bad-bg); border-left: 4px solid var(--bad); padding: 10px 14px; border-radius: 0 6px 6px 0; margin-bottom: 14px; font-size: 16px; }
@@ -447,10 +460,10 @@
   </section>
 
   <!-- 9. TEST -->
-  <section class="panel" data-tab="spr" data-label="Sprawdzian" data-min="10 min">
+  <section class="panel" data-tab="spr" data-label="Sprawdzian" data-hidden="1">
     <div class="head">
       <div><div class="kicker">Na koniec · Każdy osobno</div><h2>Sprawdzian na telefonie</h2>
-      <p class="lead">Uczniowie skanują kod QR i rozwiązują 15 losowych pytań. Wynik i ocena pojawiają się od razu, a na ekranie wyniku widać liczbę wyjść ze strony oraz kod kontrolny.</p></div>
+      <p class="lead">Uczniowie skanują kod QR i rozwiązują 15 losowych zadań: 6 × wybór ABCD, 3 × prawda/fałsz, 2 × wielokrotny wybór, kolejność wydarzeń, dopasowanie i 2 odpowiedzi wpisywane. Wynik i ocena pojawiają się od razu, a na ekranie wyniku widać liczbę wyjść ze strony oraz kod kontrolny.</p></div>
     </div>
     <div class="spr-layout">
       <div class="card">
@@ -624,7 +637,44 @@ const BANK = [
   ["Jaki ustrój panował w Atenach w czasach Peryklesa?", "Demokracja bezpośrednia", "Monarchia", "Tyrania", "Demokracja przedstawicielska"],
   ["Co oznacza greckie słowo „demokracja”?", "Władza ludu", "Władza najlepszych", "Władza jednego", "Władza bogatych"]
 ];
-const Q_COUNT = 15;
+/* Wielokrotny wybór: [polecenie, [opcja, czy poprawna]...] */
+const MULTI = [
+  ["Zaznacz instytucje, których członków wyłaniano w drodze losowania.", [["Rada Pięciuset", 1], ["Sędziowie heliai", 1], ["Strategowie", 0], ["Areopag", 0]]],
+  ["Zaznacz reformy Klejstenesa.", [["Podział Attyki na 10 fyl", 1], ["Utworzenie Rady Pięciuset", 1], ["Wprowadzenie ostracyzmu", 1], ["Zniesienie niewoli za długi", 0], ["Wprowadzenie diet", 0]]],
+  ["Zaznacz grupy mieszkańców, które NIE miały w Atenach praw politycznych.", [["Kobiety", 1], ["Niewolnicy", 1], ["Cudzoziemcy (metojkowie)", 1], ["Dorośli synowie ateńskich rodziców", 0]]],
+  ["Zaznacz dokonania Peryklesa.", [["Wprowadzenie diet", 1], ["Wsparcie budowy Partenonu", 1], ["Sprawowanie urzędu stratega przez 15 lat", 1], ["Spisanie praw", 0], ["Podział Attyki na fyle", 0]]],
+  ["Zaznacz zadania Rady Pięciuset.", [["Przygotowywanie projektów uchwał", 1], ["Przyjmowanie posłów", 1], ["Nadzór nad urzędnikami", 1], ["Dowodzenie flotą", 0], ["Sądzenie spraw o zabójstwa", 0]]]
+];
+/* Dopasowanie: instytucja ↔ opis */
+const MATCH = [
+  ["Eklezja", "zgromadzenie wszystkich obywateli"],
+  ["Rada Pięciuset", "przygotowywała obrady zgromadzenia"],
+  ["Heliaja", "sąd ludowy złożony z 6 tys. sędziów"],
+  ["Strategowie", "dowodzili armią i flotą"],
+  ["Areopag", "rada byłych archontów, sądziła zabójstwa"],
+  ["Archonci", "dziewięciu urzędników, funkcje kapłańskie"]
+];
+/* Odpowiedź wpisywana: [polecenie, [akceptowane odpowiedzi]] */
+const TEXTQ = [
+  ["Wpisz imię reformatora, którego reformy z 508 r. p.n.e. uznaje się za początek demokracji.", ["klejstenes"]],
+  ["Wpisz rok (p.n.e.), w którym Drakon spisał prawa.", ["621"]],
+  ["Jak nazywała się procedura, w której Ateńczycy pisali na skorupkach imię polityka do wygnania?", ["ostracyzm", "sad skorupkowy"]],
+  ["Ilu sędziów liczyła heliaja? Wpisz liczbę.", ["6000", "6tys", "6tysiecy", "szesctysiecy"]],
+  ["Wpisz nazwę wzgórza, na którym zbierało się zgromadzenie ludowe.", ["pnyks", "pnyx"]],
+  ["Wpisz imię polityka, który przez 15 lat z rzędu był strategiem.", ["perykles"]],
+  ["Na ile jednostek (fyl) Klejstenes podzielił Attykę? Wpisz liczbę.", ["10", "dziesiec"]]
+];
+/* Skład sprawdzianu: typ → liczba zadań (razem 15) */
+const TEST_PLAN = { mc: 6, tf: 3, multi: 2, order: 1, match: 1, text: 2 };
+const TYPE_HINT = {
+  mc: "Wybierz jedną odpowiedź",
+  tf: "Prawda czy fałsz?",
+  multi: "Zaznacz wszystkie poprawne odpowiedzi",
+  order: "Dotykaj wydarzeń od najwcześniejszego do najpóźniejszego",
+  match: "Dopasuj instytucję do opisu",
+  text: "Wpisz odpowiedź"
+};
+const Q_COUNT = Object.values(TEST_PLAN).reduce((a, b) => a + b, 0);
 const GRADES = [[96, 6, "celujący"], [85, 5, "bardzo dobry"], [70, 4, "dobry"], [55, 3, "dostateczny"], [40, 2, "dopuszczający"], [0, 1, "niedostateczny"]];
 
 /* =========================================================
@@ -696,6 +746,95 @@ function classQuiz(root, items, opts) {
 }
 
 /* =========================================================
+   TYPY ZADAŃ (sprawdzian indywidualny)
+   ========================================================= */
+const pickIdx = (n, len) => shuffle([...Array(len).keys()]).slice(0, n);
+function buildTest() {
+  const list = [];
+  pickIdx(TEST_PLAN.mc, BANK.length).forEach(qi => list.push({ t: "mc", qi, opts: shuffle([1, 2, 3, 4]) }));
+  pickIdx(TEST_PLAN.tf, PF.length).forEach(i => list.push({ t: "tf", i }));
+  pickIdx(TEST_PLAN.multi, MULTI.length).forEach(i => list.push({ t: "multi", i, opts: shuffle(MULTI[i][1].map((_, k) => k)) }));
+  for (let k = 0; k < TEST_PLAN.order; k++) list.push({ t: "order", ids: pickIdx(4, TIMELINE.length) });
+  for (let k = 0; k < TEST_PLAN.match; k++) { const ids = pickIdx(4, MATCH.length); list.push({ t: "match", ids, names: shuffle(ids) }); }
+  pickIdx(TEST_PLAN.text, TEXTQ.length).forEach(i => list.push({ t: "text", i }));
+  return shuffle(list);
+}
+const norm = s => s.toLowerCase().replace(/ł/g, "l").normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]/g, "");
+function lev(a, b) {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+// literówka (1 znak) jest wybaczana w dłuższych słowach, ale nie w liczbach
+const textOk = (given, accepted) => { const g = norm(given); return accepted.some(a => { a = norm(a); return g === a || (!/\d/.test(a) && a.length >= 6 && lev(g, a) <= 1); }); };
+
+const TASKS = {
+  mc(item) {
+    const q = BANK[item.qi]; let pick = null;
+    return {
+      text: q[0],
+      html: `<div class="st-choices">${item.opts.map((o, k) => `<button class="choice" data-o="${o}">${"ABCD"[k]}. ${esc(q[o])}</button>`).join("")}</div>`,
+      bind(r, refresh) { r.querySelectorAll(".choice").forEach(b => b.onclick = () => { r.querySelectorAll(".choice").forEach(x => x.classList.toggle("chosen", x === b)); pick = +b.dataset.o; refresh(); }); },
+      ready: () => pick != null, grade: () => pick === 1
+    };
+  },
+  tf(item) {
+    const q = PF[item.i]; let pick = null;
+    return {
+      text: q[0],
+      html: `<div class="st-choices tf"><button class="choice" data-v="1">Prawda</button><button class="choice" data-v="0">Fałsz</button></div>`,
+      bind(r, refresh) { r.querySelectorAll(".choice").forEach(b => b.onclick = () => { r.querySelectorAll(".choice").forEach(x => x.classList.toggle("chosen", x === b)); pick = b.dataset.v === "1"; refresh(); }); },
+      ready: () => pick != null, grade: () => pick === q[1]
+    };
+  },
+  multi(item) {
+    const m = MULTI[item.i], sel = new Set();
+    return {
+      text: m[0],
+      html: `<div class="st-choices">${item.opts.map(k => `<button class="choice check" data-k="${k}"><span class="box"></span>${esc(m[1][k][0])}</button>`).join("")}</div>`,
+      bind(r, refresh) { r.querySelectorAll(".choice").forEach(b => b.onclick = () => { const k = +b.dataset.k; sel.has(k) ? sel.delete(k) : sel.add(k); b.classList.toggle("chosen", sel.has(k)); refresh(); }); },
+      ready: () => sel.size > 0, grade: () => m[1].every(([, ok], k) => !!ok === sel.has(k))
+    };
+  },
+  order(item) {
+    const seq = [];
+    return {
+      text: "Ułóż wydarzenia w kolejności chronologicznej.",
+      html: `<div class="st-choices">${item.ids.map(id => `<button class="choice ord" data-id="${id}"><span class="badge"></span>${esc(TIMELINE[id].text)}</button>`).join("")}</div>
+             <button class="btn" data-clear style="margin-top:10px">Wyczyść kolejność</button>`,
+      bind(r, refresh) {
+        const paint = () => r.querySelectorAll(".ord").forEach(b => { const p = seq.indexOf(+b.dataset.id); b.classList.toggle("chosen", p >= 0); $(".badge", b).textContent = p >= 0 ? p + 1 : ""; });
+        r.querySelectorAll(".ord").forEach(b => b.onclick = () => { const id = +b.dataset.id, p = seq.indexOf(id); p >= 0 ? seq.splice(p, 1) : seq.push(id); paint(); refresh(); });
+        $("[data-clear]", r).onclick = () => { seq.length = 0; paint(); refresh(); };
+      },
+      ready: () => seq.length === item.ids.length,
+      grade: () => { const good = item.ids.slice().sort((a, b) => TIMELINE[b].y - TIMELINE[a].y); return seq.every((id, k) => id === good[k]); }
+    };
+  },
+  match(item) {
+    let r0 = null;
+    return {
+      text: "Dopasuj każdy opis do właściwej instytucji.",
+      html: item.ids.map(id => `<div class="match-row"><div>${esc(MATCH[id][1])}</div><select data-id="${id}"><option value="">— wybierz —</option>${item.names.map(n => `<option value="${n}">${esc(MATCH[n][0])}</option>`).join("")}</select></div>`).join(""),
+      bind(r, refresh) { r0 = r; r.querySelectorAll("select").forEach(s => s.onchange = refresh); },
+      ready: () => [...r0.querySelectorAll("select")].every(s => s.value !== ""),
+      grade: () => [...r0.querySelectorAll("select")].every(s => s.value === s.dataset.id)
+    };
+  },
+  text(item) {
+    const q = TEXTQ[item.i]; let inp = null;
+    return {
+      text: q[0],
+      html: `<input class="st-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Twoja odpowiedź">`,
+      bind(r, refresh, submit) { inp = $("input", r); inp.oninput = refresh; inp.onkeydown = e => { if (e.key === "Enter") submit(); }; inp.focus(); },
+      ready: () => inp && inp.value.trim() !== "", grade: () => textOk(inp.value, q[1])
+    };
+  }
+};
+
+/* =========================================================
    TRYB UCZNIA
    ========================================================= */
 const STUDENT = /uczen/.test(location.hash) || /uczen/.test(location.search);
@@ -720,8 +859,9 @@ function initStudent() {
       <h2>Zanim zaczniesz</h2>
       <div class="card" style="margin:14px 0">
         <ul style="margin:0;padding-left:20px">
-          <li>${Q_COUNT} pytań jednokrotnego wyboru, kolejność losowa.</li>
-          <li>Nie można wrócić do poprzedniego pytania.</li>
+          <li>${Q_COUNT} zadań różnego typu: wybór odpowiedzi, prawda/fałsz, kolejność wydarzeń, dopasowanie i odpowiedzi wpisywane.</li>
+          <li>Każde zadanie to 1 punkt — liczy się tylko w całości poprawna odpowiedź.</li>
+          <li>Nie można wrócić do poprzedniego zadania.</li>
           <li><b>Nie opuszczaj tej strony</b> — każde przełączenie aplikacji jest zapisywane i widoczne dla nauczyciela.</li>
           <li>Na końcu pokaż ekran z wynikiem nauczycielowi.</li>
         </ul>
@@ -732,7 +872,7 @@ function initStudent() {
     $("#sGo").onclick = () => {
       const name = $("#sName").value.trim(), cls = $("#sClass").value.trim();
       if (name.split(/\s+/).length < 2) { $("#sName").focus(); $("#sName").style.borderColor = "var(--bad)"; return; }
-      const qs = shuffle(BANK.map((_, i) => i)).slice(0, Q_COUNT).map(qi => ({ qi, opts: shuffle([1, 2, 3, 4]) }));
+      const qs = buildTest();
       S = { name, cls, qs, ans: [], idx: 0, leaves: 0, started: Date.now(), done: false };
       store.set("demo-ath-test", S); renderQ();
     };
@@ -740,22 +880,20 @@ function initStudent() {
 
   function renderQ() {
     if (S.idx >= S.qs.length) return finish();
-    const { qi, opts } = S.qs[S.idx], q = BANK[qi];
-    let pick = null;
+    const item = S.qs[S.idx], type = item.t || "mc", task = TASKS[type](item);
     root.innerHTML = `
       ${S.leaves ? `<div class="warn">Zarejestrowane wyjścia ze strony: <b>${S.leaves}</b>. Nauczyciel zobaczy tę liczbę.</div>` : ""}
-      <div class="q-top"><span>Pytanie <b>${S.idx + 1}</b> z ${S.qs.length}</span><span>${esc(S.name)}</span></div>
+      <div class="q-top"><span>Zadanie <b>${S.idx + 1}</b> z ${S.qs.length}</span><span>${esc(S.name)}</span></div>
       <div class="progress"><i style="width:${S.idx / S.qs.length * 100}%"></i></div>
-      <div class="q-text">${esc(q[0])}</div>
-      <div class="st-choices">${opts.map((o, k) => `<button class="choice" data-o="${o}">${"ABCD"[k]}. ${esc(q[o])}</button>`).join("")}</div>
+      <div class="type-hint">${TYPE_HINT[type]}</div>
+      <div class="q-text">${esc(task.text)}</div>
+      <div class="task">${task.html}</div>
       <button class="btn primary" id="sNext" disabled style="width:100%;padding:14px;margin-top:16px;font-size:18px">${S.idx === S.qs.length - 1 ? "Zakończ" : "Zatwierdź i dalej"}</button>`;
-    root.querySelectorAll(".choice").forEach(b => b.onclick = () => {
-      root.querySelectorAll(".choice").forEach(x => x.classList.remove("chosen"));
-      b.classList.add("chosen"); pick = +b.dataset.o; $("#sNext").disabled = false;
-    });
-    $("#sNext").onclick = () => {
-      if (pick == null) return;
-      S.ans.push(pick === 1); S.idx++; store.set("demo-ath-test", S);
+    const next = $("#sNext"), refresh = () => { next.disabled = !task.ready(); };
+    task.bind($(".task", root), refresh, () => { if (task.ready()) next.click(); });
+    next.onclick = () => {
+      if (!task.ready()) return;
+      S.ans.push(task.grade()); S.idx++; store.set("demo-ath-test", S);
       window.scrollTo(0, 0); renderQ();
     };
   }
@@ -801,7 +939,9 @@ function initTeacher() {
   panels.forEach((p, i) => {
     const b = el("button", "", `<b>${i === 0 ? "◆" : i}</b>${p.dataset.label}`);
     b.onclick = () => go(i); tabs.appendChild(b);
-    if (i > 0) {
+    // ukryty etap (niespodzianka) — dostępny strzałką → z ostatniego etapu
+    if (p.dataset.hidden) b.hidden = true;
+    if (i > 0 && !p.dataset.hidden) {
       const pb = el("button", "", `<span class="n">${i}</span><span class="t">${$("h2", p).textContent}</span><span class="m">${p.dataset.min || ""}</span>`);
       pb.onclick = () => go(i); $("#plan").appendChild(pb);
     }
@@ -809,12 +949,13 @@ function initTeacher() {
   function go(i) {
     cur = Math.max(0, Math.min(panels.length - 1, i));
     panels.forEach((p, k) => p.classList.toggle("active", k === cur));
-    [...tabs.children].forEach((b, k) => b.classList.toggle("active", k === cur));
+    [...tabs.children].forEach((b, k) => { b.classList.toggle("active", k === cur); if (panels[k].dataset.hidden) b.hidden = k !== cur; });
     tabs.children[cur].scrollIntoView({ inline: "nearest", block: "nearest" });
-    store.set("demo-ath-tab", cur);
+    store.set("demo-ath-tab", panels[cur].dataset.hidden ? 0 : cur);
     window.scrollTo(0, 0);
   }
   go(store.get("demo-ath-tab") || 0);
+  $(".brand").addEventListener("dblclick", () => go(panels.findIndex(p => p.dataset.hidden)));
   document.addEventListener("keydown", e => {
     if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
     if (e.key === "ArrowRight") go(cur + 1);
