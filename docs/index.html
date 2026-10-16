@@ -675,7 +675,8 @@ const TYPE_HINT = {
   text: "Wpisz odpowiedź"
 };
 const Q_COUNT = Object.values(TEST_PLAN).reduce((a, b) => a + b, 0);
-const GRADES = [[96, 6, "celujący"], [85, 5, "bardzo dobry"], [70, 4, "dobry"], [55, 3, "dostateczny"], [40, 2, "dopuszczający"], [0, 1, "niedostateczny"]];
+/* Skala ocen: [minimalna liczba punktów, ocena, nazwa] */
+const GRADES = [[14, 6, "celujący"], [12, 5, "bardzo dobry"], [10, 4, "dobry"], [7, 3, "dostateczny"], [5, 2, "dopuszczający"], [0, 1, "niedostateczny"]];
 
 /* =========================================================
    NARZĘDZIA
@@ -691,7 +692,7 @@ const store = {
 };
 function gradeFor(score, total) {
   const p = Math.round(score / total * 100);
-  for (const [min, g, w] of GRADES) if (p >= min) return { p, g, w };
+  for (const [min, g, w] of GRADES) if (score >= min) return { p, g, w };
 }
 function todayStr(d = new Date()) {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -1197,7 +1198,7 @@ function initTest() {
   ["#vName", "#vScore", "#vLeaves", "#vDate"].forEach(s => $(s).addEventListener("input", upd));
 
   $("#gradeTable").innerHTML = GRADES.map(([min, g, w], i) => {
-    const lo = Math.ceil(min / 100 * Q_COUNT), hi = i === 0 ? Q_COUNT : Math.ceil(GRADES[i - 1][0] / 100 * Q_COUNT) - 1;
+    const lo = min, hi = i === 0 ? Q_COUNT : GRADES[i - 1][0] - 1;
     return `<tr><td><b>${g}</b> — ${w}</td><td style="text-align:right">${lo === hi ? lo : lo + "–" + hi} pkt</td></tr>`;
   }).join("");
 }
