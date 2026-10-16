@@ -1,0 +1,1065 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demokracja ateńska</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root {
+    --paper: #f5f0e6;
+    --paper2: #ece4d4;
+    --card: #fbf8f2;
+    --ink: #221c18;
+    --muted: #6d6258;
+    --terra: #a4442a;
+    --terra-dk: #7d311c;
+    --terra-lt: #e9c9b6;
+    --black: #1c1917;
+    --gold: #a8843a;
+    --ok: #2f6b3a;
+    --ok-bg: #dcebd9;
+    --bad: #a3282b;
+    --bad-bg: #f3d6d3;
+    --line: #d8ccb6;
+    --display: "Cinzel", "Times New Roman", serif;
+    --serif: "Source Serif 4", Georgia, serif;
+    --sans: Inter, system-ui, "Segoe UI", sans-serif;
+    --meander: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M0 21H20V3H5V15H14V9H10' fill='none' stroke='%23a4442a' stroke-width='2'/%3E%3C/svg%3E");
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 18px; line-height: 1.5; }
+  button { font: inherit; cursor: pointer; }
+  input, select { font: inherit; }
+  [hidden] { display: none !important; }
+
+  /* ---------- Top bar ---------- */
+  .topbar { position: sticky; top: 0; z-index: 50; background: var(--black); color: #efe7d8; }
+  .topbar .row { display: flex; align-items: center; gap: 18px; padding: 10px 24px; max-width: 1400px; margin: 0 auto; }
+  .brand { font-family: var(--display); font-weight: 700; letter-spacing: .08em; font-size: 18px; white-space: nowrap; }
+  .brand span { color: #d9a27f; }
+  nav.tabs { display: flex; gap: 4px; overflow-x: auto; flex: 1; scrollbar-width: thin; }
+  nav.tabs button {
+    background: none; border: 0; color: #bfb4a3; padding: 8px 12px; border-radius: 4px; white-space: nowrap; font-size: 15px;
+  }
+  nav.tabs button b { font-family: var(--display); color: #d9a27f; margin-right: 6px; font-weight: 600; }
+  nav.tabs button:hover { color: #fff; background: rgba(255,255,255,.06); }
+  nav.tabs button.active { color: #fff; background: var(--terra); }
+  nav.tabs button.active b { color: #fff; }
+  .icon-btn { background: none; border: 1px solid rgba(255,255,255,.2); color: #efe7d8; border-radius: 4px; padding: 6px 10px; font-size: 14px; white-space: nowrap; }
+  .meander { height: 12px; background: var(--meander) repeat-x center / 24px 12px; background-color: var(--paper2); border-bottom: 1px solid var(--line); }
+
+  main { max-width: 1400px; margin: 0 auto; padding: 28px 24px 60px; }
+  section.panel { display: none; animation: fade .35s ease; }
+  section.panel.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+  .kicker { font-family: var(--display); color: var(--terra); letter-spacing: .14em; font-size: 14px; font-weight: 600; text-transform: uppercase; }
+  h1, h2 { font-family: var(--display); font-weight: 600; letter-spacing: .02em; margin: 4px 0 8px; }
+  h1 { font-size: clamp(36px, 5vw, 64px); line-height: 1.05; }
+  h2 { font-size: clamp(26px, 3vw, 38px); }
+  .lead { font-family: var(--serif); font-size: 21px; color: #3b322b; max-width: 900px; margin: 0 0 22px; }
+  .head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 18px; border-bottom: 1px solid var(--line); padding-bottom: 14px; }
+  .head .lead { margin: 0; }
+
+  .btn { border: 1px solid var(--ink); background: transparent; color: var(--ink); padding: 9px 18px; border-radius: 4px; font-weight: 500; font-size: 16px; }
+  .btn:hover { background: var(--paper2); }
+  .btn.primary { background: var(--terra); border-color: var(--terra-dk); color: #fff; }
+  .btn.primary:hover { background: var(--terra-dk); }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  .btns { display: flex; gap: 10px; flex-wrap: wrap; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 20px 22px; }
+  .note { background: var(--paper2); border-left: 4px solid var(--terra); padding: 14px 18px; font-family: var(--serif); font-size: 18px; border-radius: 0 6px 6px 0; }
+
+  /* ---------- Start ---------- */
+  .hero { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: start; }
+  .etym { display: flex; align-items: center; gap: 18px; font-family: var(--serif); margin: 22px 0; flex-wrap: wrap; }
+  .etym .w { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 12px 18px; text-align: center; }
+  .etym .w b { display: block; font-family: var(--display); font-size: 28px; color: var(--terra); }
+  .etym .w small { color: var(--muted); font-size: 15px; }
+  .etym .op { font-size: 30px; color: var(--muted); }
+  .keyq { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .keyq li { font-family: var(--serif); font-size: 21px; padding-left: 30px; position: relative; }
+  .keyq li::before { content: "?"; position: absolute; left: 0; top: 0; font-family: var(--display); color: var(--terra); font-weight: 700; }
+  .plan { display: grid; gap: 8px; }
+  .plan button { display: flex; align-items: center; gap: 14px; text-align: left; background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 12px 16px; }
+  .plan button:hover { border-color: var(--terra); }
+  .plan .n { font-family: var(--display); font-weight: 700; color: var(--terra); width: 22px; }
+  .plan .t { flex: 1; font-weight: 500; }
+  .plan .m { color: var(--muted); font-size: 14px; }
+
+  /* ---------- Quiz (shared) ---------- */
+  .quiz { max-width: 1100px; margin: 0 auto; }
+  .q-top { display: flex; justify-content: space-between; color: var(--muted); font-size: 16px; margin-bottom: 10px; }
+  .q-top b { color: var(--ink); }
+  .q-dots { display: flex; gap: 5px; margin-bottom: 18px; flex-wrap: wrap; }
+  .q-dots i { width: 22px; height: 6px; border-radius: 3px; background: var(--line); }
+  .q-dots i.cur { background: var(--ink); }
+  .q-dots i.ok { background: var(--ok); }
+  .q-dots i.bad { background: var(--bad); }
+  .q-text { font-family: var(--serif); font-size: clamp(26px, 3.2vw, 40px); line-height: 1.25; font-weight: 600; min-height: 2.6em; margin-bottom: 24px; }
+  .q-choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+  .q-choices.two { grid-template-columns: 1fr 1fr; }
+  .choice {
+    background: var(--card); border: 2px solid var(--line); border-radius: 6px; padding: 18px 16px; font-size: 21px; font-weight: 600;
+    font-family: var(--serif); transition: border-color .15s, background .15s, transform .1s;
+  }
+  .choice:hover:not(:disabled) { border-color: var(--ink); }
+  .choice:active:not(:disabled) { transform: scale(.98); }
+  .choice:disabled { cursor: default; color: var(--ink); opacity: .55; }
+  .choice.ok:disabled, .choice.bad:disabled { opacity: 1; }
+  .choice.ok { background: var(--ok-bg); border-color: var(--ok); color: var(--ok); }
+  .choice.bad { background: var(--bad-bg); border-color: var(--bad); color: var(--bad); }
+  .q-choices.two .choice { font-family: var(--display); font-size: 30px; padding: 26px; letter-spacing: .06em; }
+  .q-feedback { margin-top: 20px; padding: 16px 20px; border-radius: 6px; font-family: var(--serif); font-size: 20px; animation: fade .3s; }
+  .q-feedback.ok { background: var(--ok-bg); border-left: 5px solid var(--ok); }
+  .q-feedback.bad { background: var(--bad-bg); border-left: 5px solid var(--bad); }
+  .q-feedback strong { font-family: var(--sans); }
+  .q-nav { display: flex; justify-content: space-between; margin-top: 22px; gap: 10px; }
+  .q-end { text-align: center; padding: 40px 0; }
+  .q-end .big { font-family: var(--display); font-size: 72px; color: var(--terra); line-height: 1; }
+
+  /* ---------- Timeline ---------- */
+  .tl-wrap { position: relative; height: 330px; margin: 10px 0 24px; }
+  .tl-axis { position: absolute; left: 0; right: 0; top: 50%; height: 4px; background: var(--ink); }
+  .tl-axis::after { content: ""; position: absolute; right: -2px; top: -8px; border-left: 16px solid var(--ink); border-top: 10px solid transparent; border-bottom: 10px solid transparent; }
+  .tl-tick { position: absolute; top: calc(50% + 12px); transform: translateX(-50%); font-size: 13px; color: var(--muted); }
+  .tl-tick::before { content: ""; position: absolute; left: 50%; top: -14px; width: 1px; height: 10px; background: var(--ink); }
+  .tl-slot { position: absolute; width: 180px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; }
+  .tl-slot.up { bottom: calc(50% + 2px); }
+  .tl-slot.down { top: calc(50% + 2px); flex-direction: column-reverse; }
+  .tl-slot .stem { width: 2px; height: 22px; background: var(--terra); }
+  .tl-slot.down .stem { height: 36px; }
+  .tl-slot .date { font-family: var(--display); font-weight: 700; color: var(--terra); font-size: 16px; white-space: nowrap; }
+  .tl-drop {
+    width: 100%; min-height: 76px; border: 2px dashed #b9a98d; border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,.35); transition: background .15s, border-color .15s; padding: 4px;
+  }
+  .tl-drop.over, .tl-drop.target { border-color: var(--terra); background: #f6e3d8; }
+  .tl-drop.ok { border-style: solid; border-color: var(--ok); background: var(--ok-bg); }
+  .tl-drop.bad { border-style: solid; border-color: var(--bad); background: var(--bad-bg); }
+  .tl-pool { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; min-height: 90px; padding: 14px; border-top: 1px solid var(--line); }
+  .ev {
+    background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--terra); border-radius: 4px; padding: 10px 12px;
+    font-family: var(--serif); font-size: 16px; line-height: 1.25; font-weight: 600; cursor: grab; user-select: none; width: 172px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  }
+  .tl-drop .ev { width: 100%; box-shadow: none; }
+  .ev.sel { outline: 3px solid var(--terra); }
+  .ev.dragging { opacity: .4; }
+
+  /* ---------- Institutions ---------- */
+  .inst-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, 1fr); gap: 26px; align-items: start; }
+  .diagram { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .node {
+    background: var(--card); border: 2px solid var(--line); border-radius: 6px; padding: 14px 12px; text-align: center; transition: border-color .15s, background .2s, transform .15s;
+  }
+  .node:hover { border-color: var(--ink); }
+  .node .nm { font-family: var(--display); font-weight: 700; font-size: 19px; line-height: 1.15; }
+  .node .gr { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .node .how { display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--paper2); color: var(--muted); }
+  .node .how.lot { background: #e7dcc4; color: #6b5420; }
+  .node .how.vote { background: #dfe4ee; color: #2f4166; }
+  .node.sel { border-color: var(--terra); background: #f8ebe3; }
+  .node.ok { border-color: var(--ok); background: var(--ok-bg); }
+  .node.bad { border-color: var(--bad); background: var(--bad-bg); animation: shake .4s; }
+  .diagram.guess .how, .diagram.guess .gr { visibility: hidden; }
+  .arrows { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; text-align: center; color: var(--terra); font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; }
+  .arrows div::before { content: "▲"; display: block; font-size: 18px; line-height: 1; }
+  .arrows div::after { content: ""; display: block; width: 2px; height: 16px; background: var(--terra); margin: 2px auto 0; }
+  .node.citizens { grid-column: 1 / -1; background: var(--black); color: #efe7d8; border-color: var(--black); }
+  .node.citizens .gr { color: #bfb4a3; }
+  .node.citizens.sel { background: var(--terra-dk); }
+  .row-label { grid-column: 1 / -1; font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--muted); margin: 6px 0 -6px; }
+  .detail h3 { font-family: var(--display); font-size: 28px; margin: 0 0 4px; }
+  .detail dl { margin: 14px 0 0; display: grid; gap: 12px; }
+  .detail dt { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--terra); font-weight: 600; }
+  .detail dd { margin: 2px 0 0; font-family: var(--serif); font-size: 19px; }
+  .mode-switch { display: inline-flex; border: 1px solid var(--ink); border-radius: 4px; overflow: hidden; }
+  .mode-switch button { border: 0; background: transparent; padding: 8px 16px; }
+  .mode-switch button.active { background: var(--ink); color: #fff; }
+  .clue { font-family: var(--serif); font-size: 26px; font-weight: 600; line-height: 1.3; }
+  @keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+  /* ---------- Kleroterion ---------- */
+  .kl-layout { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 26px; align-items: start; }
+  .field { display: grid; gap: 4px; margin-bottom: 14px; }
+  .field label { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .field input, .field select { min-width: 0; width: 100%; padding: 9px 10px; border: 1px solid var(--line); border-radius: 4px; background: #fff; }
+  .tokens { display: grid; grid-template-columns: repeat(auto-fill, minmax(62px, 1fr)); gap: 8px; }
+  .token {
+    aspect-ratio: 1.25; border-radius: 4px; display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(160deg, #c99a5b, #9a6a32); color: #2b1a08; font-family: var(--display); font-weight: 700; font-size: 22px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 1px 2px rgba(0,0,0,.2); transition: transform .1s;
+  }
+  .token.off { opacity: .2; }
+  .token.scan { background: #f3e2c2; transform: scale(1.08); }
+  .token.pick { background: var(--terra); color: #fff; transform: scale(1.06); box-shadow: 0 0 0 3px #fff, 0 0 0 5px var(--terra); }
+  .picked { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; min-height: 64px; }
+  .picked span { font-family: var(--display); font-weight: 700; font-size: 30px; background: var(--black); color: #fff; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; animation: pop .5s cubic-bezier(.2,1.6,.4,1); }
+  @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
+
+  /* ---------- Ostracism ---------- */
+  .os-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 26px; align-items: start; }
+  .cand { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+  .cand .nm { flex: 1; font-family: var(--serif); font-size: 22px; font-weight: 600; }
+  .cand .cnt { font-family: var(--display); font-size: 30px; font-weight: 700; width: 50px; text-align: center; }
+  .cand button { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--ink); background: var(--card); font-size: 22px; line-height: 1; }
+  .cand button.plus { background: var(--terra); color: #fff; border-color: var(--terra-dk); }
+  .cand .del { width: 30px; height: 30px; font-size: 14px; border-color: var(--line); color: var(--muted); }
+  .pile { position: relative; height: 300px; background: radial-gradient(ellipse at 50% 90%, #e2d6c0, var(--paper2) 70%); border-radius: 6px; border: 1px solid var(--line); overflow: hidden; }
+  .shard {
+    position: absolute; padding: 14px 24px 16px; font-family: var(--serif); font-style: italic; font-weight: 700; font-size: 14px; color: #2b1408;
+    background: linear-gradient(145deg, #c9683f, #9c4626); white-space: nowrap; animation: drop .45s cubic-bezier(.3,1.4,.5,1);
+    text-shadow: 0 1px 0 rgba(255,255,255,.2);
+  }
+  @keyframes drop { from { transform: translateY(-260px) rotate(0deg); opacity: 0; } }
+  .verdict { margin-top: 16px; padding: 18px 20px; border-radius: 6px; background: var(--black); color: #efe7d8; font-family: var(--serif); font-size: 21px; animation: fade .4s; }
+  .verdict b { color: #e7b394; font-family: var(--display); font-size: 28px; display: block; }
+
+  /* ---------- Pericles ---------- */
+  .flip-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .flip { perspective: 1200px; min-height: 210px; cursor: pointer; }
+  .flip-in { position: relative; width: 100%; height: 100%; min-height: 210px; transform-style: preserve-3d; transition: transform .7s cubic-bezier(.5,0,.2,1); }
+  .flip.open .flip-in { transform: rotateY(180deg); }
+  .flip .f { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 6px; padding: 20px; display: flex; flex-direction: column; justify-content: center; }
+  .flip .f1 { background: var(--card); border: 1px solid var(--line); font-family: var(--serif); font-size: 19px; font-style: italic; }
+  .flip .f1 small { font-style: normal; font-family: var(--display); color: var(--terra); font-weight: 700; margin-bottom: 8px; font-size: 15px; }
+  .flip .f2 { background: var(--black); color: #efe7d8; transform: rotateY(180deg); text-align: center; align-items: center; }
+  .flip .f2 b { font-family: var(--display); font-size: 24px; color: #e7b394; line-height: 1.2; }
+  .flip .f2 span { margin-top: 8px; font-size: 15px; color: #bfb4a3; }
+  .reveal-box { margin-top: 18px; }
+  .reveal-box .ans { margin-top: 10px; }
+
+  /* ---------- Test (teacher) ---------- */
+  .spr-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 26px; align-items: start; }
+  #qr { background: #fff; padding: 14px; display: inline-block; border-radius: 6px; border: 1px solid var(--line); }
+  .url { font-family: ui-monospace, Consolas, monospace; font-size: 15px; word-break: break-all; background: var(--paper2); padding: 8px 10px; border-radius: 4px; margin-top: 10px; }
+  table.grades { border-collapse: collapse; width: 100%; font-size: 16px; }
+  table.grades td { border-bottom: 1px solid var(--line); padding: 6px 4px; }
+  .code-out { font-family: ui-monospace, Consolas, monospace; font-size: 40px; font-weight: 700; letter-spacing: .2em; color: var(--terra); }
+
+  /* ---------- Student mode ---------- */
+  body.student .topbar nav, body.student #fsBtn { display: none; }
+  .st { max-width: 760px; margin: 0 auto; }
+  .st .choice { width: 100%; text-align: left; font-size: 19px; padding: 16px; }
+  .st .choice.chosen { border-color: var(--terra); background: #f8ebe3; }
+  .st .q-text { font-size: 26px; min-height: 0; }
+  .st-choices { display: grid; gap: 10px; }
+  .progress { height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; margin: 6px 0 20px; }
+  .progress i { display: block; height: 100%; background: var(--terra); transition: width .3s; }
+  .warn { background: var(--bad-bg); border-left: 4px solid var(--bad); padding: 10px 14px; border-radius: 0 6px 6px 0; margin-bottom: 14px; font-size: 16px; }
+  .result { text-align: center; }
+  .result .seal {
+    width: 200px; height: 200px; margin: 10px auto 18px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 3px double var(--terra); background: var(--card); position: relative;
+  }
+  .result .seal::before { content: ""; position: absolute; inset: -12px; border-radius: 50%; border: 2px dashed var(--terra); animation: spin 14s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .result .seal .g { font-family: var(--display); font-size: 84px; font-weight: 700; line-height: 1; color: var(--terra); }
+  .result .seal .gw { font-size: 14px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .result .who { font-family: var(--serif); font-size: 28px; font-weight: 700; }
+  .result .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0; }
+  .result .stats div { background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 10px; }
+  .result .stats b { display: block; font-family: var(--display); font-size: 26px; }
+  .result .stats small { color: var(--muted); font-size: 13px; }
+  .result .stats .alert b { color: var(--bad); }
+  .result .clock { font-family: ui-monospace, Consolas, monospace; font-size: 22px; color: var(--muted); }
+  .result .ansrow { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+  .result .ansrow i { width: 30px; height: 30px; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-style: normal; font-size: 13px; font-weight: 700; color: #fff; }
+
+  @media (max-width: 960px) {
+    .hero, .inst-layout, .kl-layout, .os-layout, .spr-layout { grid-template-columns: 1fr; }
+    .flip-grid { grid-template-columns: 1fr 1fr; }
+    .tl-wrap { height: auto; }
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    main { padding: 18px 16px 40px; }
+    .topbar .row { padding: 10px 16px; }
+    .flip-grid { grid-template-columns: 1fr; }
+    .result .stats b { font-size: 20px; }
+    .q-choices.two .choice { font-size: 22px; padding: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="row">
+    <div class="brand">ΔΗΜΟΣ · <span>Demokracja ateńska</span></div>
+    <nav class="tabs" id="tabs"></nav>
+    <button class="icon-btn" id="fsBtn" title="Pełny ekran">⛶ Pełny ekran</button>
+  </div>
+</div>
+<div class="meander"></div>
+
+<main id="teacher">
+  <!-- 1. START -->
+  <section class="panel" data-tab="start" data-label="Wstęp">
+    <div class="hero">
+      <div>
+        <div class="kicker">Dzieje starożytnej Grecji</div>
+        <h1>Ateńska demokracja</h1>
+        <p class="lead">Ateny były jedną z najpotężniejszych greckich <i>poleis</i>. To tu narodziła się demokracja — ustrój, w którym o sprawach państwa decydowali sami obywatele.</p>
+        <div class="etym">
+          <div class="w"><b>δῆμος</b>dēmos<br><small>lud</small></div>
+          <div class="op">+</div>
+          <div class="w"><b>κράτος</b>kratos<br><small>władza</small></div>
+          <div class="op">=</div>
+          <div class="w"><b>δημοκρατία</b>dēmokratia<br><small>władza ludu</small></div>
+        </div>
+        <h2 style="font-size:24px">Pytania na dziś</h2>
+        <ul class="keyq">
+          <li>W jaki sposób powstała demokracja ateńska?</li>
+          <li>Jak funkcjonowały jej instytucje?</li>
+          <li>Kto naprawdę miał w Atenach prawa polityczne?</li>
+        </ul>
+      </div>
+      <div>
+        <div class="kicker" style="margin-bottom:10px">Przebieg lekcji</div>
+        <div class="plan" id="plan"></div>
+        <p style="color:var(--muted);font-size:14px;margin-top:12px">Strzałki ← → na klawiaturze przełączają etapy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. TIMELINE -->
+  <section class="panel" data-tab="os" data-label="Oś czasu" data-min="5 min">
+    <div class="head">
+      <div><div class="kicker">Etap 1</div><h2>Droga do demokracji</h2>
+      <p class="lead">Przeciągnij wydarzenia na właściwe daty (albo kliknij wydarzenie, a potem miejsce na osi).</p></div>
+      <div class="btns"><button class="btn primary" id="tlCheck">Sprawdź</button><button class="btn" id="tlSolve">Rozwiązanie</button><button class="btn" id="tlReset">Od nowa</button></div>
+    </div>
+    <div class="tl-wrap" id="tlWrap"><div class="tl-axis"></div></div>
+    <div class="tl-pool" id="tlPool"></div>
+    <div class="note" id="tlMsg" hidden></div>
+  </section>
+
+  <!-- 3. REFORMERS -->
+  <section class="panel" data-tab="reform" data-label="Reformatorzy" data-min="7 min">
+    <div class="head">
+      <div><div class="kicker">Etap 2</div><h2>Kto to zrobił?</h2>
+      <p class="lead">Klasa naradza się i wskazuje, który z Ateńczyków odpowiada za daną zmianę.</p></div>
+    </div>
+    <div id="reformQuiz"></div>
+  </section>
+
+  <!-- 4. INSTITUTIONS -->
+  <section class="panel" data-tab="inst" data-label="Instytucje" data-min="10 min">
+    <div class="head">
+      <div><div class="kicker">Etap 3</div><h2>Jak działała demokracja ateńska?</h2>
+      <p class="lead" id="instLead">Kliknij instytucję, aby poznać jej skład i kompetencje.</p></div>
+      <div class="mode-switch"><button class="active" data-mode="explore">Odkrywaj</button><button data-mode="guess">Zgadnij instytucję</button></div>
+    </div>
+    <div class="inst-layout">
+      <div class="diagram" id="diagram"></div>
+      <div class="card detail" id="instSide"></div>
+    </div>
+  </section>
+
+  <!-- 5. KLEROTERION -->
+  <section class="panel" data-tab="kler" data-label="Losowanie" data-min="3 min">
+    <div class="head">
+      <div><div class="kicker">Etap 4 · Kleroterion</div><h2>Losujemy urzędników</h2>
+      <p class="lead">Ateńczycy uważali losowanie za najbardziej demokratyczną metodę — każdy obywatel miał równą szansę. Wylosujmy z klasy urzędników według numerów z dziennika.</p></div>
+    </div>
+    <div class="kl-layout">
+      <div class="card">
+        <div class="field"><label for="klN">Liczba uczniów w klasie</label><input id="klN" type="number" min="2" max="40" value="30"></div>
+        <div class="field"><label for="klK">Ile osób wylosować</label><input id="klK" type="number" min="1" max="20" value="3"></div>
+        <div class="field"><label for="klRole">Kogo losujemy?</label>
+          <select id="klRole">
+            <option>Rada Pięciuset — przygotuje odpowiedź dla klasy</option>
+            <option>Sędziowie heliai — ocenią odpowiedzi kolegów</option>
+            <option>Archonci — przewodniczą dyskusji</option>
+            <option>Ochotnicy do odpowiedzi</option>
+          </select></div>
+        <div class="field"><label for="klEx">Nieobecni (numery po przecinku)</label><input id="klEx" placeholder="np. 4, 17"></div>
+        <div class="btns"><button class="btn primary" id="klGo">Losuj</button><button class="btn" id="klClear">Wyczyść</button></div>
+      </div>
+      <div>
+        <div class="tokens" id="tokens"></div>
+        <div class="kicker" style="margin-top:20px" id="klRoleOut"></div>
+        <div class="picked" id="picked"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. OSTRACISM -->
+  <section class="panel" data-tab="ostr" data-label="Ostracyzm" data-min="7 min">
+    <div class="head">
+      <div><div class="kicker">Etap 5</div><h2>Sąd skorupkowy</h2>
+      <p class="lead">Raz w roku zgromadzenie decydowało, czy przeprowadzić ostracyzm. Obywatele pisali na skorupkach (<i>ostrakach</i>) imię polityka, który ich zdaniem zagrażał Atenom.</p></div>
+    </div>
+    <div class="os-layout">
+      <div>
+        <div id="cands"></div>
+        <div style="display:flex;gap:8px;margin:14px 0">
+          <input id="newCand" placeholder="Dodaj kandydata…" style="flex:1;padding:9px 10px;border:1px solid var(--line);border-radius:4px">
+          <button class="btn" id="addCand">Dodaj</button>
+        </div>
+        <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap">
+          <label style="font-size:15px">Wymagana liczba skorupek: <input id="quorum" type="number" min="1" value="15" style="width:70px;padding:6px;border:1px solid var(--line);border-radius:4px"></label>
+          <button class="btn primary" id="osResult">Ogłoś wynik</button>
+          <button class="btn" id="osReset">Wyzeruj</button>
+        </div>
+        <p style="font-size:14px;color:var(--muted);margin-top:8px">W Atenach ostracyzm był ważny, gdy oddano co najmniej 6000 skorupek. W klasie ustal własny próg.</p>
+        <div id="verdict"></div>
+      </div>
+      <div>
+        <div class="pile" id="pile"></div>
+        <div class="card" style="margin-top:16px">
+          <div class="kicker">Warto wiedzieć · Ostracyzm Arystydesa</div>
+          <p style="font-family:var(--serif);font-size:18px;margin:8px 0 0">Plutarch opowiada, że niepiśmienny wieśniak poprosił nieznajomego o wypisanie na skorupce imienia Arystydesa. Zapytany, czym Arystydes mu zawinił, odparł, że niczym — po prostu ma dość słuchania, jak wszyscy nazywają go „sprawiedliwym”. Nieznajomym był sam Arystydes. Wypisał swoje imię i oddał skorupkę.</p>
+          <div class="reveal-box"><button class="btn" data-reveal="osToday">Jakie znaczenie ma dziś pojęcie „ostracyzm”?</button>
+          <div class="note ans" id="osToday" hidden>Dziś ostracyzm to <b>odrzucenie, wykluczenie kogoś z grupy</b> — bojkot towarzyski, zerwanie kontaktów. Ateński ostracyzm był natomiast procedurą prawną: polityk opuszczał miasto na 10 lat, ale nie tracił majątku ani obywatelstwa.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. PERICLES -->
+  <section class="panel" data-tab="per" data-label="Perykles" data-min="7 min">
+    <div class="head">
+      <div><div class="kicker">Etap 6 · Tekst źródłowy</div><h2>Perykles o demokracji</h2>
+      <p class="lead">Tukidydes przytacza mowę Peryklesa o ustroju Aten. Przeczytaj parafrazę i nazwij zasadę — potem odwróć kartę.</p></div>
+    </div>
+    <div class="flip-grid" id="flips"></div>
+    <p style="font-size:14px;color:var(--muted);margin-top:10px">Na podstawie: Tukidydes, <i>Wojna peloponeska</i>, ks. II 37–41 (parafraza).</p>
+    <div class="reveal-box card">
+      <div class="clue" style="font-size:22px">Oceń, dlaczego Perykles nazwał Ateny „szkołą Hellady”.</div>
+      <button class="btn" data-reveal="perAns" style="margin-top:12px">Pokaż przykładową odpowiedź</button>
+      <div class="note ans" id="perAns" hidden>Perykles uważał, że ustrój i styl życia Aten są wzorem dla innych Greków: obywatele są równi wobec prawa, awansują dzięki zdolnościom, a nie pochodzeniu, cenią wiedzę i piękno, a każdy może w pełni rozwinąć swoje możliwości. Warto zauważyć, że to mowa polityka chwalącego własne państwo w czasie wojny — ma charakter propagandowy i pomija tych, którzy praw politycznych nie mieli (kobiety, metojków, niewolników).</div>
+    </div>
+  </section>
+
+  <!-- 8. TRUE/FALSE -->
+  <section class="panel" data-tab="pf" data-label="Prawda czy fałsz" data-min="6 min">
+    <div class="head">
+      <div><div class="kicker">Etap 7 · Podsumowanie</div><h2>Prawda czy fałsz?</h2>
+      <p class="lead">Głosowanie jak na eklezji: ręce w górę! Większość decyduje, a nauczyciel zaznacza odpowiedź klasy.</p></div>
+    </div>
+    <div id="pfQuiz"></div>
+  </section>
+
+  <!-- 9. TEST -->
+  <section class="panel" data-tab="spr" data-label="Sprawdzian" data-min="10 min">
+    <div class="head">
+      <div><div class="kicker">Na koniec · Każdy osobno</div><h2>Sprawdzian na telefonie</h2>
+      <p class="lead">Uczniowie skanują kod QR i rozwiązują 15 losowych pytań. Wynik i ocena pojawiają się od razu, a na ekranie wyniku widać liczbę wyjść ze strony oraz kod kontrolny.</p></div>
+    </div>
+    <div class="spr-layout">
+      <div class="card">
+        <div class="kicker" style="margin-bottom:10px">Wejście dla uczniów</div>
+        <div id="qrBox"></div>
+      </div>
+      <div style="display:grid;gap:18px">
+        <div class="card">
+          <div class="kicker" style="margin-bottom:8px">Jak sprawdzić, czy wynik jest prawdziwy?</div>
+          <ul style="margin:0;padding-left:20px;font-size:16px">
+            <li>Na ekranie wyniku <b>tyka aktualny zegar</b> — zrzut ekranu od kolegi od razu widać.</li>
+            <li>Każde przełączenie aplikacji lub karty jest liczone jako <b>„wyjście ze strony”</b>.</li>
+            <li>Kod kontrolny zależy od imienia, wyniku, liczby wyjść i dzisiejszej daty — wpisz dane poniżej i porównaj.</li>
+            <li>Ponowne podejście na tym samym telefonie jest zablokowane.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <div class="kicker" style="margin-bottom:8px">Weryfikacja kodu</div>
+          <div class="field"><label for="vName">Imię i nazwisko (jak wpisał uczeń)</label><input id="vName"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+            <div class="field"><label for="vScore">Punkty</label><input id="vScore" type="number" min="0" max="15"></div>
+            <div class="field"><label for="vLeaves">Wyjścia</label><input id="vLeaves" type="number" min="0" value="0"></div>
+            <div class="field"><label for="vDate">Data</label><input id="vDate" type="date"></div>
+          </div>
+          <div>Poprawny kod: <span class="code-out" id="vCode">—</span></div>
+        </div>
+        <div class="card">
+          <div class="kicker" style="margin-bottom:8px">Skala ocen (15 pytań)</div>
+          <table class="grades" id="gradeTable"></table>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<main id="student" hidden><div class="st" id="st"></div></main>
+
+<script>
+/* =========================================================
+   DANE
+   ========================================================= */
+const TIMELINE = [
+  { id: "drakon", y: 621, date: "621 r. p.n.e.", text: "Spisanie surowych praw przez Drakona" },
+  { id: "solon", y: 594, date: "594 r. p.n.e.", text: "Reformy Solona — zniesienie niewoli za długi" },
+  { id: "pizy", y: 561, date: "561–510 r. p.n.e.", text: "Tyrania Pizystrata i jego synów" },
+  { id: "klej", y: 508, date: "508 r. p.n.e.", text: "Reformy Klejstenesa — początek demokracji" },
+  { id: "pers", y: 480, date: "480 r. p.n.e.", text: "Najazd perski na Grecję, zniszczenie Aten" },
+  { id: "perk", y: 444, date: "444–429 r. p.n.e.", text: "Dominacja Peryklesa w życiu politycznym" }
+];
+
+const REFORMERS = ["Drakon", "Solon", "Pizystrat", "Klejstenes", "Perykles"];
+const REFORM_Q = [
+  { q: "Spisał prawa tak surowe, że do dziś mówimy o „drakońskich” karach.", a: "Drakon", ex: "Drakon spisał prawa w 621 r. p.n.e. — było to pierwsze spisanie obowiązującego prawa w Atenach." },
+  { q: "Zniósł niewolę za długi i umorzył długi ciążące na ziemi.", a: "Solon", ex: "Solon (594 r. p.n.e.) zlikwidował niewolę za długi i wykupił obywateli sprzedanych wcześniej w niewolę." },
+  { q: "Podzielił obywateli na klasy według majątku — najbogatsi mogli pełnić najwyższe urzędy.", a: "Solon", ex: "To nowość: o udziale we władzy decydował majątek, a nie pochodzenie. Majątek można było zdobyć, by awansować." },
+  { q: "Przejął władzę jako tyran i budował monumentalne budowle, m.in. świątynię Zeusa Olimpijskiego.", a: "Pizystrat", ex: "Pizystrat rządził jako tyran; po jego śmierci władzę przejęli synowie. Młodszy został zamordowany, starszy uciekł z Aten w 510 r. p.n.e." },
+  { q: "Podzielił Attykę na 10 jednostek — fyl, łącząc w każdej obywateli z różnych części kraju.", a: "Klejstenes", ex: "Mieszanie mieszkańców różnych okolic osłabiło wpływy arystokratycznych rodów w ich regionach." },
+  { q: "Utworzył Radę Pięciuset, w której mógł zasiadać każdy obywatel niezależnie od majątku.", a: "Klejstenes", ex: "Rada ustalała porządek obrad zgromadzenia i przygotowywała projekty uchwał." },
+  { q: "Wprowadził ostracyzm, czyli sąd skorupkowy.", a: "Klejstenes", ex: "Obywatele mogli raz w roku zdecydować o wygnaniu na 10 lat polityka uznanego za groźnego dla państwa." },
+  { q: "Powołał urząd dziesięciu strategów — dowódców wojskowych.", a: "Klejstenes", ex: "Strategów wybierano w głosowaniu, a urząd można było pełnić wielokrotnie." },
+  { q: "Wprowadził diety, aby najbiedniejsi obywatele mogli pełnić funkcje publiczne.", a: "Perykles", ex: "Diety — drobne wynagrodzenie za dzień służby państwu — wypłacano najpierw członkom Rady Pięciuset i sędziom." },
+  { q: "Przez 15 lat z rzędu był strategiem i wspierał budowę Partenonu na Akropolu.", a: "Perykles", ex: "Perykles był wybitnym mówcą i współtwórcą potęgi Aten w V w. p.n.e.; z jego inicjatywy powstały Partenon i Propyleje." }
+];
+
+const INST = {
+  archonci: { nm: "Archonci", gr: "ἄρχοντες", how: "lot", howTxt: "losowanie",
+    sklad: "Dziewięciu urzędników wyłanianych co roku.",
+    wybor: "Początkowo wybierani spośród najbogatszych; w V w. p.n.e. — losowani.",
+    komp: "Początkowo najwyższa władza w Atenach. Po reformach Klejstenesa pełnili głównie funkcje kapłańskie i sądowe." },
+  areopag: { nm: "Areopag", gr: "Ἄρειος πάγος", how: "", howTxt: "byli archonci",
+    sklad: "Rada starszych — trafiali do niej byli archonci, zasiadali dożywotnio.",
+    wybor: "Nie wybierano go — członkiem zostawał archont po zakończeniu urzędowania.",
+    komp: "Strzegł praw i obyczajów, sądził sprawy o zabójstwa. Obradował na wzgórzu boga wojny Aresa." },
+  strategowie: { nm: "Strategowie", gr: "στρατηγοί", how: "vote", howTxt: "głosowanie",
+    sklad: "Dziesięciu dowódców wybieranych co roku.",
+    wybor: "Wybierani w głosowaniu — wyjątek wśród urzędów. Funkcję można było pełnić wielokrotnie.",
+    komp: "Dowodzili armią i flotą. Często mieli ogromny wpływ na politykę — np. Perykles był strategiem przez 15 lat z rzędu." },
+  rada: { nm: "Rada Pięciuset", gr: "βουλή", how: "lot", howTxt: "losowanie",
+    sklad: "500 obywateli — po 50 z każdej z 10 fyl.",
+    wybor: "Losowanie przeprowadzane co roku. Mógł w niej zasiadać każdy obywatel, niezależnie od majątku.",
+    komp: "Przygotowywała obrady i projekty uchwał zgromadzenia, zajmowała się bieżącymi sprawami, nadzorowała urzędników i przyjmowała posłów." },
+  eklezja: { nm: "Eklezja", gr: "ἐκκλησία", how: "", howTxt: "wszyscy obywatele",
+    sklad: "Zgromadzenie ludowe — każdy obywatel, który ukończył 20 lat.",
+    wybor: "Nikogo nie wybierano: każdy obywatel przychodził osobiście (demokracja bezpośrednia).",
+    komp: "Najważniejsze decyzje w państwie. Każdy mógł zabrać głos i zgłosić projekt uchwały. Zbierała się ok. 40 razy w roku na wzgórzu Pnyks." },
+  heliaja: { nm: "Heliaja", gr: "ἡλιαία", how: "lot", howTxt: "losowanie",
+    sklad: "Sąd ludowy — 6 tysięcy sędziów.",
+    wybor: "Losowani co roku spośród obywateli, którzy ukończyli 30 lat; do konkretnych spraw znów losowano sędziów.",
+    komp: "Sprawy cywilne i polityczne, m.in. korupcja i projekty uchwał niezgodne z prawem — sąd kontrolował polityków." },
+  obywatele: { nm: "Obywatele", gr: "πολῖται", how: "", howTxt: "",
+    sklad: "Wyłącznie pełnoletni mężczyźni, których oboje rodzice byli Ateńczykami.",
+    wybor: "Praw politycznych nie mieli: kobiety, cudzoziemcy (metojkowie) i niewolnicy — czyli większość mieszkańców.",
+    komp: "Uczestniczyli w eklezji, mogli zasiadać w Radzie i heliai. Dzięki dietom w polityce mogli brać udział także biedni." }
+};
+const INST_CLUES = [
+  ["Zasiadało w niej 500 osób, po 50 z każdej fyli.", "rada"],
+  ["Przygotowywała projekty uchwał i porządek obrad zgromadzenia.", "rada"],
+  ["Przyjmowała posłów z innych państw i nadzorowała urzędników.", "rada"],
+  ["Zbierało się ok. 40 razy w roku na wzgórzu Pnyks.", "eklezja"],
+  ["Mógł w nim zabrać głos każdy obywatel, który ukończył 20 lat.", "eklezja"],
+  ["Tu zapadały najważniejsze decyzje w państwie — demokracja bezpośrednia.", "eklezja"],
+  ["6 tysięcy sędziów losowanych co roku spośród obywateli po trzydziestce.", "heliaja"],
+  ["Mogła ukarać polityka za zgłoszenie projektu niezgodnego z prawem.", "heliaja"],
+  ["Rada starszych, do której trafiali byli archonci.", "areopag"],
+  ["Obradował na wzgórzu poświęconym bogu wojny.", "areopag"],
+  ["Sądził sprawy o zabójstwa i strzegł obyczajów.", "areopag"],
+  ["Dowodzili armią i flotą.", "strategowie"],
+  ["Jedyny ważny urząd obsadzany w głosowaniu, a nie przez losowanie.", "strategowie"],
+  ["Perykles pełnił tę funkcję przez 15 lat z rzędu.", "strategowie"],
+  ["Dziewięciu urzędników — przed reformami najwyższa władza w Atenach.", "archonci"],
+  ["Po reformach Klejstenesa pełnili głównie funkcje kapłańskie i sądowe.", "archonci"],
+  ["Pełnoletni mężczyźni, których oboje rodzice byli Ateńczykami.", "obywatele"]
+];
+
+const PERICLES = [
+  ["Nasz ustrój nazywa się demokracją, bo władza należy do większości, a nie do garstki ludzi.", "Rządy większości", "władza ludu"],
+  ["W sprawach prywatnych wszyscy obywatele mają takie same prawa.", "Równość wobec prawa", "izonomia"],
+  ["O pozycji w państwie decydują zdolności, a nie pochodzenie. Ubóstwo nie zamyka nikomu drogi do służby państwu.", "Awans według zasług", "merytokracja"],
+  ["Nie wtrącamy się w to, jak żyją nasi sąsiedzi, i nie okazujemy im niechęci.", "Wolność w życiu prywatnym", "tolerancja"],
+  ["W sprawach publicznych słuchamy urzędników i praw — zwłaszcza tych, które chronią pokrzywdzonych.", "Szacunek dla prawa", "praworządność"],
+  ["Nasze państwo jest wzorem dla innych — każdy obywatel może tu wszechstronnie się rozwijać.", "Ateny szkołą Hellady", "wzór dla Greków"]
+];
+
+const PF = [
+  ["W Atenach obowiązywała demokracja bezpośrednia — obywatele sami głosowali na zgromadzeniu.", true, "Najważniejsze decyzje podejmowała eklezja, na którą przychodził każdy obywatel osobiście."],
+  ["Kobiety mogły zabierać głos na zgromadzeniu ludowym.", false, "Prawa polityczne mieli wyłącznie pełnoletni mężczyźni, których oboje rodzice byli Ateńczykami."],
+  ["Strategów wyłaniano w drodze losowania.", false, "Strategów wybierano w głosowaniu — to wyjątek wśród ateńskich urzędów."],
+  ["Większość urzędników w Atenach wyłaniano przez losowanie.", true, "Losowanie uznawano za najbardziej demokratyczną metodę — każdy miał równą szansę."],
+  ["Polityk wygnany w wyniku ostracyzmu tracił majątek i obywatelstwo.", false, "Musiał opuścić Ateny na 10 lat, ale zachowywał majątek i prawa obywatelskie."],
+  ["Urzędnicy po zakończeniu kadencji musieli zdać sprawozdanie ze swojej pracy.", true, "Urzędnicy byli na każdym etapie kontrolowani przez zgromadzenie i sąd ludowy."],
+  ["Perykles wprowadził diety, by w życiu politycznym mogli uczestniczyć także biedni.", true, "Diety rekompensowały utracony dzień pracy — najpierw członkom Rady i sędziom."],
+  ["Członków Rady Pięciuset wybierano spośród najbogatszych obywateli.", false, "Losowano ich po 50 z każdej fyli; zasiadać w Radzie mógł każdy obywatel."],
+  ["Prawa spisane przez Drakona słynęły z łagodności.", false, "Były tak surowe, że do dziś mówimy o „drakońskich” karach."],
+  ["Większość urzędów można było pełnić tylko raz w życiu.", true, "Ograniczało to ryzyko, że ktoś zbyt długo skupi władzę. Wyjątkiem byli stratedzy."],
+  ["Sędziów heliai losowano spośród obywateli, którzy ukończyli 30 lat.", true, "Co roku losowano 6 tys. sędziów, a z nich — składy do konkretnych spraw."],
+  ["Klejstenes podzielił Attykę na 10 fyl.", true, "W każdej fyli znaleźli się mieszkańcy różnych części Attyki — osłabiło to wpływy arystokracji."],
+  ["Areopag obradował na wzgórzu Pnyks.", false, "Na Pnyksie zbierała się eklezja. Areopag obradował na wzgórzu Aresa."],
+  ["Długie Mury łączyły Ateny z portem w Pireusie.", true, "Dzięki nim Ateny i Pireus tworzyły kompleks trudny do zdobycia z lądu i od strony morza."]
+];
+
+/* Bank pytań do sprawdzianu indywidualnego: [pytanie, poprawna, błędne...] */
+const BANK = [
+  ["Kto spisał prawa ateńskie w 621 r. p.n.e.?", "Drakon", "Solon", "Klejstenes", "Perykles"],
+  ["Która reforma należała do Solona?", "Zniesienie niewoli za długi", "Wprowadzenie ostracyzmu", "Utworzenie Rady Pięciuset", "Wprowadzenie diet"],
+  ["Według jakiego kryterium Solon podzielił obywateli na klasy?", "Majątku", "Pochodzenia", "Wieku", "Miejsca zamieszkania"],
+  ["Kto sprawował w Atenach rządy tyrańskie w VI w. p.n.e.?", "Pizystrat", "Arystydes", "Drakon", "Perykles"],
+  ["Którą datę uznaje się za początek demokracji ateńskiej (reformy Klejstenesa)?", "508 r. p.n.e.", "621 r. p.n.e.", "594 r. p.n.e.", "480 r. p.n.e."],
+  ["Na ile fyl Klejstenes podzielił Attykę?", "10", "4", "12", "50"],
+  ["Ilu członków liczyła rada utworzona przez Klejstenesa?", "500", "50", "6000", "9"],
+  ["W jaki sposób wyłaniano członków Rady Pięciuset?", "Losowano po 50 osób z każdej fyli", "Wybierano ich w głosowaniu na eklezji", "Dziedziczyli miejsce po ojcach", "Mianowali ich archonci"],
+  ["Czym był ostracyzm?", "Głosowaniem nad wygnaniem polityka na 10 lat", "Karą śmierci za zdradę państwa", "Wyborem strategów", "Sądem nad byłymi archontami"],
+  ["Na czym Ateńczycy zapisywali imię polityka podczas ostracyzmu?", "Na skorupkach naczyń", "Na woskowych tabliczkach", "Na papirusie", "Na kamiennych stelach"],
+  ["Co tracił polityk wygnany w wyniku ostracyzmu?", "Nic — zachowywał majątek i obywatelstwo", "Cały majątek", "Wolność — stawał się niewolnikiem", "Obywatelstwo"],
+  ["Kto mógł wziąć udział w zgromadzeniu ludowym (eklezji)?", "Każdy obywatel, który ukończył 20 lat", "Tylko członkowie Rady Pięciuset", "Tylko najbogatsi obywatele", "Wszyscy mieszkańcy Aten, także kobiety"],
+  ["Gdzie zbierało się zgromadzenie ludowe?", "Na wzgórzu Pnyks", "Na Akropolu", "Na wzgórzu Aresa", "W porcie w Pireusie"],
+  ["Co było głównym zadaniem strategów?", "Dowodzenie armią i flotą", "Organizowanie igrzysk", "Pełnienie funkcji kapłańskich", "Bicie monety"],
+  ["W jaki sposób wyłaniano strategów?", "W głosowaniu", "W drodze losowania", "Urząd był dziedziczny", "Mianował ich Areopag"],
+  ["Ilu sędziów liczyła heliaja?", "6000", "500", "10", "40"],
+  ["Kto mógł zostać sędzią heliai?", "Obywatel, który ukończył 30 lat", "Każdy mieszkaniec Aten", "Tylko były archont", "Tylko strateg"],
+  ["Czym zajmował się Areopag?", "Strzegł praw i sądził sprawy o zabójstwa", "Dowodził flotą", "Przygotowywał obrady eklezji", "Przyjmował posłów z innych państw"],
+  ["Kto zasiadał w Areopagu?", "Byli archonci", "Losowani obywatele", "Strategowie", "Kapłanki Ateny"],
+  ["Ilu archontów wyłaniano co roku?", "9", "10", "5", "500"],
+  ["Co umożliwiło biednym obywatelom udział w życiu politycznym?", "Diety wprowadzone przez Peryklesa", "Ostracyzm", "Prawa Drakona", "Tyrania Pizystrata"],
+  ["Przez ile lat z rzędu Perykles pełnił urząd stratega?", "15", "5", "10", "30"],
+  ["Która budowla powstała z inicjatywy Peryklesa?", "Partenon", "Świątynia Zeusa Olimpijskiego", "Piramida Cheopsa", "Koloseum"],
+  ["Kto NIE miał w Atenach praw politycznych?", "Kobiety", "Pełnoletni obywatele", "Członkowie Rady Pięciuset", "Strategowie"],
+  ["Jaki sposób obsadzania urzędów Ateńczycy uważali za najbardziej demokratyczny?", "Losowanie", "Głosowanie", "Dziedziczenie", "Mianowanie przez stratega"],
+  ["Co musieli zrobić urzędnicy po zakończeniu kadencji?", "Przedstawić sprawozdanie ze swojej pracy", "Opuścić Ateny na 10 lat", "Oddać majątek państwu", "Zostać strategami"],
+  ["Jak Perykles nazwał Ateny w mowie przytoczonej przez Tukidydesa?", "Szkołą Hellady", "Twierdzą Attyki", "Sercem Persji", "Matką miast"],
+  ["Do czego służyły Długie Mury?", "Łączyły Ateny z portem w Pireusie", "Chroniły Akropol przed powodzią", "Oddzielały dzielnice bogatych i biednych", "Wyznaczały granicę Attyki"],
+  ["Jaki ustrój panował w Atenach w czasach Peryklesa?", "Demokracja bezpośrednia", "Monarchia", "Tyrania", "Demokracja przedstawicielska"],
+  ["Co oznacza greckie słowo „demokracja”?", "Władza ludu", "Władza najlepszych", "Władza jednego", "Władza bogatych"]
+];
+const Q_COUNT = 15;
+const GRADES = [[96, 6, "celujący"], [85, 5, "bardzo dobry"], [70, 4, "dobry"], [55, 3, "dostateczny"], [40, 2, "dopuszczający"], [0, 1, "niedostateczny"]];
+
+/* =========================================================
+   NARZĘDZIA
+   ========================================================= */
+const $ = (s, r = document) => r.querySelector(s);
+const el = (tag, cls, html) => { const e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; };
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const store = {
+  get(k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+function gradeFor(score, total) {
+  const p = Math.round(score / total * 100);
+  for (const [min, g, w] of GRADES) if (p >= min) return { p, g, w };
+}
+function todayStr(d = new Date()) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+}
+function checkCode(name, score, leaves, date) {
+  const s = `${name.trim().toLowerCase().replace(/\s+/g, " ")}|${score}|${leaves}|${date}|polis-508`;
+  let h = 0x811c9dc5;
+  for (const ch of s) { h ^= ch.codePointAt(0); h = Math.imul(h, 0x01000193) >>> 0; }
+  const A = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let out = "";
+  for (let i = 0; i < 4; i++) { out += A[h % 32]; h = Math.floor(h / 32); }
+  return out;
+}
+
+/* Wspólny komponent quizu klasowego */
+function classQuiz(root, items, opts) {
+  let order = shuffle(items.map((_, i) => i)), i = 0, res = [];
+  function render() {
+    if (i >= order.length) {
+      const ok = res.filter(Boolean).length;
+      root.innerHTML = `<div class="quiz q-end"><div class="kicker">Wynik klasy</div><div class="big">${ok} / ${order.length}</div>
+        <p class="lead" style="margin:16px auto">${ok === order.length ? "Bezbłędnie — godni Peryklesa!" : ok >= order.length * .7 ? "Bardzo dobrze. Wróćmy jeszcze do pomyłek." : "Warto powtórzyć ten fragment lekcji."}</p>
+        <button class="btn primary">Jeszcze raz</button></div>`;
+      $("button", root).onclick = () => { order = shuffle(order); i = 0; res = []; render(); };
+      return;
+    }
+    const it = items[order[i]], answered = res[i] !== undefined;
+    const choices = opts.choices(it);
+    root.innerHTML = `<div class="quiz">
+      <div class="q-top"><span>Pytanie <b>${i + 1}</b> z ${order.length}</span><span>Poprawne odpowiedzi klasy: <b>${res.filter(Boolean).length}</b></span></div>
+      <div class="q-dots">${order.map((_, k) => `<i class="${k === i ? "cur" : res[k] === true ? "ok" : res[k] === false ? "bad" : ""}"></i>`).join("")}</div>
+      <div class="q-text">${esc(opts.text(it))}</div>
+      <div class="q-choices ${choices.length === 2 ? "two" : ""}">${choices.map(c => `<button class="choice">${esc(c)}</button>`).join("")}</div>
+      <div class="q-feedback" hidden></div>
+      <div class="q-nav"><button class="btn" data-n="prev" ${i === 0 ? "disabled" : ""}>← Wstecz</button><button class="btn primary" data-n="next" ${answered ? "" : "disabled"}>${i === order.length - 1 ? "Wynik" : "Dalej →"}</button></div>
+    </div>`;
+    const btns = [...root.querySelectorAll(".choice")];
+    const correct = opts.answer(it);
+    const show = (pick) => {
+      btns.forEach(b => { b.disabled = true; if (b.textContent === correct) b.classList.add("ok"); else if (b.textContent === pick) b.classList.add("bad"); });
+      const fb = $(".q-feedback", root), ok = pick === correct;
+      fb.hidden = false; fb.className = "q-feedback " + (ok ? "ok" : "bad");
+      fb.innerHTML = `<strong>${ok ? "Dobrze!" : "Niestety nie. Poprawnie: " + esc(correct) + "."}</strong> ${esc(opts.explain(it))}`;
+      $('[data-n="next"]', root).disabled = false;
+    };
+    if (answered) show(res[i] ? correct : (res["p" + i] || ""));
+    btns.forEach(b => b.onclick = () => { if (res[i] !== undefined) return; res[i] = b.textContent === correct; res["p" + i] = b.textContent; show(b.textContent); render(); });
+    $('[data-n="prev"]', root).onclick = () => { i--; render(); };
+    $('[data-n="next"]', root).onclick = () => { i++; render(); };
+  }
+  render();
+}
+
+/* =========================================================
+   TRYB UCZNIA
+   ========================================================= */
+const STUDENT = /uczen/.test(location.hash) || /uczen/.test(location.search);
+if (STUDENT) initStudent(); else initTeacher();
+
+function initStudent() {
+  document.body.classList.add("student");
+  $("#teacher").hidden = true; $("#student").hidden = false;
+  if (/reset/.test(location.hash)) { store.del("demo-ath-test"); history.replaceState(null, "", location.pathname + location.search + "#uczen"); }
+  const root = $("#st");
+  let S = store.get("demo-ath-test");
+  let clockTimer = null;
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && S && !S.done && S.started) { S.leaves++; store.set("demo-ath-test", S); }
+    if (!document.hidden && S && !S.done && S.started) renderQ();
+  });
+
+  function startScreen() {
+    root.innerHTML = `
+      <div class="kicker">Sprawdzian · Demokracja ateńska</div>
+      <h2>Zanim zaczniesz</h2>
+      <div class="card" style="margin:14px 0">
+        <ul style="margin:0;padding-left:20px">
+          <li>${Q_COUNT} pytań jednokrotnego wyboru, kolejność losowa.</li>
+          <li>Nie można wrócić do poprzedniego pytania.</li>
+          <li><b>Nie opuszczaj tej strony</b> — każde przełączenie aplikacji jest zapisywane i widoczne dla nauczyciela.</li>
+          <li>Na końcu pokaż ekran z wynikiem nauczycielowi.</li>
+        </ul>
+      </div>
+      <div class="field"><label for="sName">Imię i nazwisko</label><input id="sName" autocomplete="off"></div>
+      <div class="field"><label for="sClass">Klasa</label><input id="sClass" autocomplete="off"></div>
+      <button class="btn primary" id="sGo" style="width:100%;padding:14px;font-size:18px">Rozpocznij</button>`;
+    $("#sGo").onclick = () => {
+      const name = $("#sName").value.trim(), cls = $("#sClass").value.trim();
+      if (name.split(/\s+/).length < 2) { $("#sName").focus(); $("#sName").style.borderColor = "var(--bad)"; return; }
+      const qs = shuffle(BANK.map((_, i) => i)).slice(0, Q_COUNT).map(qi => ({ qi, opts: shuffle([1, 2, 3, 4]) }));
+      S = { name, cls, qs, ans: [], idx: 0, leaves: 0, started: Date.now(), done: false };
+      store.set("demo-ath-test", S); renderQ();
+    };
+  }
+
+  function renderQ() {
+    if (S.idx >= S.qs.length) return finish();
+    const { qi, opts } = S.qs[S.idx], q = BANK[qi];
+    let pick = null;
+    root.innerHTML = `
+      ${S.leaves ? `<div class="warn">Zarejestrowane wyjścia ze strony: <b>${S.leaves}</b>. Nauczyciel zobaczy tę liczbę.</div>` : ""}
+      <div class="q-top"><span>Pytanie <b>${S.idx + 1}</b> z ${S.qs.length}</span><span>${esc(S.name)}</span></div>
+      <div class="progress"><i style="width:${S.idx / S.qs.length * 100}%"></i></div>
+      <div class="q-text">${esc(q[0])}</div>
+      <div class="st-choices">${opts.map((o, k) => `<button class="choice" data-o="${o}">${"ABCD"[k]}. ${esc(q[o])}</button>`).join("")}</div>
+      <button class="btn primary" id="sNext" disabled style="width:100%;padding:14px;margin-top:16px;font-size:18px">${S.idx === S.qs.length - 1 ? "Zakończ" : "Zatwierdź i dalej"}</button>`;
+    root.querySelectorAll(".choice").forEach(b => b.onclick = () => {
+      root.querySelectorAll(".choice").forEach(x => x.classList.remove("chosen"));
+      b.classList.add("chosen"); pick = +b.dataset.o; $("#sNext").disabled = false;
+    });
+    $("#sNext").onclick = () => {
+      if (pick == null) return;
+      S.ans.push(pick === 1); S.idx++; store.set("demo-ath-test", S);
+      window.scrollTo(0, 0); renderQ();
+    };
+  }
+
+  function finish() {
+    if (!S.done) {
+      S.done = true; S.finished = Date.now(); S.score = S.ans.filter(Boolean).length; S.date = todayStr();
+      store.set("demo-ath-test", S);
+    }
+    const g = gradeFor(S.score, S.qs.length);
+    const mins = Math.max(1, Math.round((S.finished - S.started) / 60000));
+    const fin = new Date(S.finished);
+    root.innerHTML = `<div class="result">
+      <div class="kicker">Sprawdzian · Demokracja ateńska</div>
+      <div class="seal"><div class="g">${g.g}</div><div class="gw">${g.w}</div></div>
+      <div class="who">${esc(S.name)}</div>
+      <div style="color:var(--muted)">${esc(S.cls || "")} · ukończono ${fin.toLocaleTimeString("pl-PL", { hour: "2-digit", minute: "2-digit" })}, ${fin.toLocaleDateString("pl-PL")}</div>
+      <div class="stats">
+        <div><b>${S.score}/${S.qs.length}</b><small>punkty (${g.p}%)</small></div>
+        <div class="${S.leaves ? "alert" : ""}"><b>${S.leaves}</b><small>wyjścia ze strony</small></div>
+        <div><b>${mins} min</b><small>czas pisania</small></div>
+      </div>
+      <div class="ansrow">${S.ans.map((a, k) => `<i style="background:${a ? "var(--ok)" : "var(--bad)"}">${k + 1}</i>`).join("")}</div>
+      <div style="margin-top:10px">Kod kontrolny</div>
+      <div class="code-out">${checkCode(S.name, S.score, S.leaves, S.date)}</div>
+      <div class="clock" id="clock"></div>
+      <p style="color:var(--muted);font-size:14px">Pokaż ten ekran nauczycielowi. Nie zamykaj strony.</p>
+    </div>`;
+    const tick = () => { const c = $("#clock"); if (c) c.textContent = new Date().toLocaleTimeString("pl-PL"); };
+    tick(); clearInterval(clockTimer); clockTimer = setInterval(tick, 1000);
+  }
+
+  if (!S) startScreen(); else if (S.done) finish(); else renderQ();
+}
+
+/* =========================================================
+   TRYB KLASY (NAUCZYCIEL)
+   ========================================================= */
+function initTeacher() {
+  const panels = [...document.querySelectorAll("section.panel")];
+  const tabs = $("#tabs");
+  let cur = 0;
+  panels.forEach((p, i) => {
+    const b = el("button", "", `<b>${i === 0 ? "◆" : i}</b>${p.dataset.label}`);
+    b.onclick = () => go(i); tabs.appendChild(b);
+    if (i > 0) {
+      const pb = el("button", "", `<span class="n">${i}</span><span class="t">${$("h2", p).textContent}</span><span class="m">${p.dataset.min || ""}</span>`);
+      pb.onclick = () => go(i); $("#plan").appendChild(pb);
+    }
+  });
+  function go(i) {
+    cur = Math.max(0, Math.min(panels.length - 1, i));
+    panels.forEach((p, k) => p.classList.toggle("active", k === cur));
+    [...tabs.children].forEach((b, k) => b.classList.toggle("active", k === cur));
+    tabs.children[cur].scrollIntoView({ inline: "nearest", block: "nearest" });
+    store.set("demo-ath-tab", cur);
+    window.scrollTo(0, 0);
+  }
+  go(store.get("demo-ath-tab") || 0);
+  document.addEventListener("keydown", e => {
+    if (/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) return;
+    if (e.key === "ArrowRight") go(cur + 1);
+    if (e.key === "ArrowLeft") go(cur - 1);
+  });
+  $("#fsBtn").onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
+  document.querySelectorAll("[data-reveal]").forEach(b => b.onclick = () => { const t = document.getElementById(b.dataset.reveal); t.hidden = !t.hidden; });
+
+  initTimeline(); initInstitutions(); initKleroterion(); initOstracism(); initPericles(); initTest();
+  classQuiz($("#reformQuiz"), REFORM_Q, { text: it => it.q, choices: () => REFORMERS, answer: it => it.a, explain: it => it.ex });
+  classQuiz($("#pfQuiz"), PF, { text: it => it[0], choices: () => ["Prawda", "Fałsz"], answer: it => it[1] ? "Prawda" : "Fałsz", explain: it => it[2] });
+}
+
+/* ---------- Oś czasu ---------- */
+function initTimeline() {
+  const wrap = $("#tlWrap"), pool = $("#tlPool"), msg = $("#tlMsg");
+  const pos = y => (700 - y) / 300 * 100;
+  [700, 650, 600, 550, 500, 450, 400].forEach(y => { const t = el("div", "tl-tick", `${y}`); t.style.left = pos(y) + "%"; wrap.appendChild(t); });
+  let selected = null;
+  const slots = {};
+  TIMELINE.forEach((ev, i) => {
+    const s = el("div", "tl-slot " + (i % 2 ? "down" : "up"), `<div class="tl-drop" data-slot="${ev.id}"></div><div class="date">${ev.date}</div><div class="stem"></div>`);
+    s.style.left = Math.min(Math.max(pos(ev.y), 8), 92) + "%";
+    wrap.appendChild(s); slots[ev.id] = $(".tl-drop", s);
+  });
+  const cards = {};
+  TIMELINE.forEach(ev => {
+    const c = el("div", "ev", esc(ev.text)); c.draggable = true; c.dataset.ev = ev.id; cards[ev.id] = c;
+    c.addEventListener("dragstart", e => { e.dataTransfer.setData("text/plain", ev.id); c.classList.add("dragging"); });
+    c.addEventListener("dragend", () => c.classList.remove("dragging"));
+    c.addEventListener("click", e => {
+      e.stopPropagation();
+      if (c.parentElement.classList.contains("tl-drop")) { pool.appendChild(c); clearMarks(); return; }
+      selected = selected === ev.id ? null : ev.id;
+      Object.values(cards).forEach(x => x.classList.toggle("sel", x.dataset.ev === selected));
+      Object.values(slots).forEach(s => s.classList.toggle("target", !!selected));
+    });
+  });
+  function place(evId, slotEl) {
+    const occ = slotEl.querySelector(".ev"); if (occ && occ !== cards[evId]) pool.appendChild(occ);
+    slotEl.appendChild(cards[evId]); selected = null;
+    Object.values(cards).forEach(x => x.classList.remove("sel"));
+    Object.values(slots).forEach(s => s.classList.remove("target"));
+    clearMarks();
+  }
+  Object.values(slots).forEach(s => {
+    s.addEventListener("dragover", e => { e.preventDefault(); s.classList.add("over"); });
+    s.addEventListener("dragleave", () => s.classList.remove("over"));
+    s.addEventListener("drop", e => { e.preventDefault(); s.classList.remove("over"); place(e.dataTransfer.getData("text/plain"), s); });
+    s.addEventListener("click", () => { if (selected) place(selected, s); });
+  });
+  pool.addEventListener("dragover", e => e.preventDefault());
+  pool.addEventListener("drop", e => { e.preventDefault(); pool.appendChild(cards[e.dataTransfer.getData("text/plain")]); clearMarks(); });
+  function clearMarks() { Object.values(slots).forEach(s => s.classList.remove("ok", "bad")); msg.hidden = true; }
+  function reset() { clearMarks(); shuffle(TIMELINE).forEach(ev => pool.appendChild(cards[ev.id])); }
+  $("#tlReset").onclick = reset;
+  $("#tlSolve").onclick = () => { TIMELINE.forEach(ev => slots[ev.id].appendChild(cards[ev.id])); check(); };
+  $("#tlCheck").onclick = check;
+  function check() {
+    let ok = 0;
+    TIMELINE.forEach(ev => { const c = slots[ev.id].querySelector(".ev"); const good = c && c.dataset.ev === ev.id; slots[ev.id].classList.toggle("ok", good); slots[ev.id].classList.toggle("bad", !!c && !good); if (good) ok++; });
+    msg.hidden = false;
+    msg.innerHTML = ok === TIMELINE.length
+      ? "<b>Wszystko na swoim miejscu.</b> Zauważ: od spisania praw przez Drakona do reform Klejstenesa minęło ponad sto lat — demokracja rodziła się stopniowo, w reakcji na konflikty społeczne i tyranię."
+      : `Poprawnie: <b>${ok} z ${TIMELINE.length}</b>. Spróbujcie poprawić czerwone pola.`;
+  }
+  reset();
+}
+
+/* ---------- Instytucje ---------- */
+function initInstitutions() {
+  const dia = $("#diagram"), side = $("#instSide"), lead = $("#instLead");
+  const node = id => {
+    const d = INST[id];
+    const n = el("button", "node" + (id === "obywatele" ? " citizens" : ""), `<div class="nm">${d.nm}</div><div class="gr">${d.gr}</div>${d.howTxt ? `<span class="how ${d.how}">${d.howTxt}</span>` : ""}`);
+    n.dataset.id = id; n.onclick = () => clickNode(id, n); return n;
+  };
+  dia.appendChild(el("div", "row-label", "Urzędy i rady"));
+  ["archonci", "areopag", "strategowie"].forEach(id => dia.appendChild(node(id)));
+  dia.appendChild(el("div", "row-label", "Instytucje ludu"));
+  ["rada", "eklezja", "heliaja"].forEach(id => dia.appendChild(node(id)));
+  dia.appendChild(el("div", "arrows", "<div>losowanie</div><div>udział osobisty</div><div>losowanie</div>"));
+  dia.appendChild(node("obywatele"));
+
+  let mode = "explore", clues = [], ci = 0, score = 0, answered = false;
+  function showDetail(id) {
+    const d = INST[id];
+    side.innerHTML = `<div class="kicker">${d.gr}</div><h3>${d.nm}</h3>
+      <dl><dt>Skład</dt><dd>${d.sklad}</dd><dt>${id === "obywatele" ? "Kto był wykluczony?" : "Jak ich wyłaniano?"}</dt><dd>${d.wybor}</dd><dt>${id === "obywatele" ? "Prawa" : "Kompetencje"}</dt><dd>${d.komp}</dd></dl>`;
+  }
+  function explore() {
+    lead.textContent = "Kliknij instytucję, aby poznać jej skład i kompetencje.";
+    dia.classList.remove("guess");
+    side.innerHTML = `<div class="kicker">Wskazówka</div><p style="font-family:var(--serif);font-size:19px">Zwróć uwagę na sposób obsadzania stanowisk: <span class="how lot" style="padding:2px 8px;border-radius:99px;background:#e7dcc4;font-size:14px">losowanie</span> czy <span style="padding:2px 8px;border-radius:99px;background:#dfe4ee;font-size:14px">głosowanie</span>? Dlaczego Ateńczycy losowali większość urzędników?</p>`;
+  }
+  function guessNext() {
+    dia.querySelectorAll(".node").forEach(n => n.classList.remove("ok", "bad", "sel"));
+    answered = false;
+    if (ci >= clues.length) {
+      side.innerHTML = `<div class="kicker">Koniec</div><h3>${score} / ${clues.length}</h3><p>Tyle wskazówek klasa rozpoznała za pierwszym razem.</p><button class="btn primary" id="gAgain">Jeszcze raz</button>`;
+      $("#gAgain").onclick = startGuess; return;
+    }
+    side.innerHTML = `<div class="q-top"><span>Wskazówka <b>${ci + 1}</b> z ${clues.length}</span><span>Trafienia: <b>${score}</b></span></div>
+      <div class="clue">${clues[ci][0]}</div><div id="gFb" style="margin-top:14px"></div>`;
+  }
+  function startGuess() { clues = shuffle(INST_CLUES).slice(0, 10); ci = 0; score = 0; dia.classList.add("guess"); lead.textContent = "Przeczytaj wskazówkę i kliknij instytucję, o której mowa."; guessNext(); }
+  function clickNode(id, n) {
+    if (mode === "explore") { dia.querySelectorAll(".node").forEach(x => x.classList.toggle("sel", x === n)); showDetail(id); return; }
+    if (ci >= clues.length) return;
+    const correct = clues[ci][1];
+    if (id === correct) {
+      n.classList.add("ok"); if (!answered) score++;
+      answered = true;
+      $("#gFb").innerHTML = `<div class="q-feedback ok"><strong>Tak — ${INST[id].nm}.</strong></div><button class="btn primary" style="margin-top:12px" id="gNext">Dalej →</button>`;
+      $("#gNext").onclick = () => { ci++; guessNext(); };
+    } else {
+      n.classList.remove("bad"); void n.offsetWidth; n.classList.add("bad"); answered = true;
+    }
+  }
+  document.querySelectorAll(".mode-switch button").forEach(b => b.onclick = () => {
+    document.querySelectorAll(".mode-switch button").forEach(x => x.classList.toggle("active", x === b));
+    mode = b.dataset.mode;
+    dia.querySelectorAll(".node").forEach(n => n.classList.remove("ok", "bad", "sel"));
+    mode === "guess" ? startGuess() : explore();
+  });
+  explore();
+}
+
+/* ---------- Kleroterion ---------- */
+function initKleroterion() {
+  const tokens = $("#tokens"), picked = $("#picked");
+  let busy = false;
+  const excluded = () => new Set($("#klEx").value.split(/[^0-9]+/).filter(Boolean).map(Number));
+  function build() {
+    if (busy) return;
+    const n = Math.max(2, Math.min(40, +$("#klN").value || 30)), ex = excluded();
+    tokens.innerHTML = "";
+    for (let i = 1; i <= n; i++) { const t = el("div", "token" + (ex.has(i) ? " off" : ""), i); t.dataset.n = i; tokens.appendChild(t); }
+  }
+  ["#klN", "#klEx"].forEach(s => $(s).addEventListener("input", build));
+  $("#klClear").onclick = () => { if (busy) return; picked.innerHTML = ""; $("#klRoleOut").textContent = ""; build(); };
+  $("#klGo").onclick = async () => {
+    if (busy) return;
+    build(); picked.innerHTML = "";
+    const pool = [...tokens.children].filter(t => !t.classList.contains("off"));
+    const k = Math.min(Math.max(1, +$("#klK").value || 1), pool.length);
+    $("#klRoleOut").textContent = $("#klRole").value.split(" — ")[0] + " — wylosowani:";
+    busy = true;
+    const avail = pool.slice();
+    for (let r = 0; r < k; r++) {
+      const win = avail.splice(Math.floor(Math.random() * avail.length), 1)[0];
+      const steps = 18;
+      for (let s = 0; s < steps; s++) {
+        const t = s === steps - 1 ? win : avail.concat(win)[Math.floor(Math.random() * (avail.length + 1))];
+        t.classList.add("scan");
+        await new Promise(res => setTimeout(res, 40 + s * s * 0.9));
+        t.classList.remove("scan");
+      }
+      win.classList.add("pick");
+      picked.appendChild(el("span", "", win.dataset.n));
+      await new Promise(res => setTimeout(res, 350));
+    }
+    busy = false;
+  };
+  build();
+}
+
+/* ---------- Ostracyzm ---------- */
+function initOstracism() {
+  let cands = [{ n: "Arystydes", v: 0 }, { n: "Temistokles", v: 0 }, { n: "Kimon", v: 0 }, { n: "Hyperbolos", v: 0 }];
+  const list = $("#cands"), pile = $("#pile"), verdict = $("#verdict");
+  function render() {
+    list.innerHTML = "";
+    cands.forEach((c, i) => {
+      const row = el("div", "cand", `<span class="nm">${esc(c.n)}</span><button class="minus" aria-label="Odejmij głos">−</button><span class="cnt">${c.v}</span><button class="plus" aria-label="Dodaj głos">+</button><button class="del" aria-label="Usuń kandydata">✕</button>`);
+      $(".plus", row).onclick = () => { c.v++; addShard(c.n); render(); };
+      $(".minus", row).onclick = () => { if (!c.v) return; c.v--; removeShard(c.n); render(); };
+      $(".del", row).onclick = () => { cands.splice(i, 1); [...pile.children].filter(s => s.dataset.n === c.n).forEach(s => s.remove()); render(); };
+      list.appendChild(row);
+    });
+  }
+  function addShard(name) {
+    const s = el("div", "shard", esc(name.toUpperCase()));
+    s.dataset.n = name;
+    const pts = Array.from({ length: 7 }, (_, k) => { const a = k / 7 * Math.PI * 2; const r = 44 + Math.random() * 8; return `${50 + Math.cos(a) * r}% ${50 + Math.sin(a) * r}%`; });
+    s.style.clipPath = `polygon(${pts.join(",")})`;
+    s.style.left = (5 + Math.random() * 70) + "%";
+    s.style.top = (30 + Math.random() * 55) + "%";
+    s.style.transform = `rotate(${(Math.random() - .5) * 50}deg)`;
+    s.style.zIndex = pile.children.length;
+    pile.appendChild(s);
+  }
+  function removeShard(name) { const all = [...pile.children].filter(s => s.dataset.n === name); if (all.length) all[all.length - 1].remove(); }
+  $("#addCand").onclick = () => { const v = $("#newCand").value.trim(); if (!v) return; cands.push({ n: v, v: 0 }); $("#newCand").value = ""; render(); };
+  $("#newCand").addEventListener("keydown", e => { if (e.key === "Enter") $("#addCand").click(); });
+  $("#osReset").onclick = () => { cands.forEach(c => c.v = 0); pile.innerHTML = ""; verdict.innerHTML = ""; render(); };
+  $("#osResult").onclick = () => {
+    const total = cands.reduce((s, c) => s + c.v, 0), q = +$("#quorum").value || 1;
+    if (total < q) { verdict.innerHTML = `<div class="verdict"><b>Brak wymaganej liczby głosów</b>Oddano ${total} z ${q} wymaganych skorupek. Ostracyzm jest nieważny — nikt nie opuszcza Aten.</div>`; return; }
+    const max = Math.max(...cands.map(c => c.v)), top = cands.filter(c => c.v === max);
+    verdict.innerHTML = top.length > 1
+      ? `<div class="verdict"><b>Remis</b>${top.map(c => esc(c.n)).join(" i ")} otrzymali po ${max} głosów. Klasa musi zagłosować jeszcze raz.</div>`
+      : `<div class="verdict"><b>${esc(top[0].n)} opuszcza Ateny na 10 lat</b>Otrzymał ${max} z ${total} głosów. Zachowuje majątek i obywatelstwo — po powrocie może znów działać w polityce.</div>`;
+  };
+  render();
+}
+
+/* ---------- Perykles ---------- */
+function initPericles() {
+  const g = $("#flips");
+  PERICLES.forEach(([txt, name, sub], i) => {
+    const f = el("div", "flip", `<div class="flip-in"><div class="f f1"><small>Fragment ${i + 1}</small>„${esc(txt)}”</div><div class="f f2"><b>${esc(name)}</b><span>${esc(sub)}</span></div></div>`);
+    f.onclick = () => f.classList.toggle("open");
+    g.appendChild(f);
+  });
+}
+
+/* ---------- Sprawdzian (nauczyciel) ---------- */
+function initTest() {
+  const box = $("#qrBox");
+  const url = location.href.split("#")[0] + "#uczen";
+  if (/^https?:/.test(location.protocol) && !/localhost|127\.0\.0\.1/.test(location.hostname)) {
+    const q = el("div"); q.id = "qr"; box.appendChild(q);
+    if (window.QRCode) new QRCode(q, { text: url, width: 280, height: 280, correctLevel: QRCode.CorrectLevel.M });
+    else q.textContent = "Brak połączenia z internetem — nie można wygenerować kodu QR.";
+    box.appendChild(el("div", "url", esc(url)));
+  } else {
+    box.appendChild(el("div", "note", "Strona jest otwarta z dysku tego komputera, więc telefony uczniów nie mają do niej dostępu. Żeby działał kod QR, stronę trzeba opublikować w internecie (np. na GitHub Pages). Poniżej możesz podejrzeć, jak wygląda sprawdzian u ucznia."));
+  }
+  const prev = el("div", "btns"); prev.style.marginTop = "14px";
+  prev.innerHTML = `<a class="btn" href="${esc(url)}" target="_blank">Podgląd widoku ucznia</a>`;
+  box.appendChild(prev);
+
+  $("#vDate").value = todayStr();
+  const upd = () => {
+    const n = $("#vName").value.trim(), s = $("#vScore").value;
+    $("#vCode").textContent = n && s !== "" ? checkCode(n, +s, +$("#vLeaves").value || 0, $("#vDate").value) : "—";
+  };
+  ["#vName", "#vScore", "#vLeaves", "#vDate"].forEach(s => $(s).addEventListener("input", upd));
+
+  $("#gradeTable").innerHTML = GRADES.map(([min, g, w], i) => {
+    const lo = Math.ceil(min / 100 * Q_COUNT), hi = i === 0 ? Q_COUNT : Math.ceil(GRADES[i - 1][0] / 100 * Q_COUNT) - 1;
+    return `<tr><td><b>${g}</b> — ${w}</td><td style="text-align:right">${lo === hi ? lo : lo + "–" + hi} pkt</td></tr>`;
+  }).join("");
+}
+</script>
+</body>
+</html>
